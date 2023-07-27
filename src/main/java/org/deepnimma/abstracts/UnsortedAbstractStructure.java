@@ -5,8 +5,16 @@ import org.deepnimma.interfaces.UnsortedDataStructure;
 
 public abstract class UnsortedAbstractStructure<T extends Comparable<T>> extends SortedAbstractStructure<T>
         implements UnsortedDataStructure<T> {
+
     /**
-     * {@inheritDoc}
+     * Default constructor for an UnsortedAbstractStructure.
+     */
+    protected UnsortedAbstractStructure() {
+        super();
+    } // UnsortedAbstractStructure
+
+    /**
+     * Constructor to convert a different DataStructure into an UnsortedAbstractStructure.
      */
     protected UnsortedAbstractStructure(DataStructure<T> otherStructure) {
         super(otherStructure);

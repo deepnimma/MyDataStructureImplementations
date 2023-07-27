@@ -7,6 +7,13 @@ public abstract class SortedAbstractStructure<T extends Comparable<T>> implement
     protected boolean reversed;
 
     /**
+     * Default constructor for SortedAbstractStructure
+     */
+    protected SortedAbstractStructure() {
+        reversed = false;
+    } // SortedAbstractStructure
+
+    /**
      * Converts another {@link org.deepnimma.interfaces.DataStructure} to the current data structure.
      * @param otherStructure the other structure to convert.
      */

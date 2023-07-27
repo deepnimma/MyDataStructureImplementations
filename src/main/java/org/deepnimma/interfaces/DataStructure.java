@@ -137,6 +137,18 @@ public interface DataStructure<T extends Comparable<T>> {
     public T getLastValue();
 
     /**
+     * Returns the smallest value in the data structure.
+     * @return the smallest value in the data structure.
+     */
+    public T getSmallestValue();
+
+    /**
+     * Returns the largest value in the data structure.
+     * @return the largest value in the data structure.
+     */
+    public T getLargestValue();
+
+    /**
      * Converts the data structure into an array and returns it.
      * @return the array form of the current data structure.
      */
@@ -148,4 +160,4 @@ public interface DataStructure<T extends Comparable<T>> {
      */
     @Override
     public String toString();
-}
+} // DataStructure

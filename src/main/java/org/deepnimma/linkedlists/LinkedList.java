@@ -8,13 +8,15 @@ import org.deepnimma.nodes.LinkedListNode;
 /**
  * A unsorted implementation of the LinkedList data structure.
  */
-public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructure<T> implements UnsortedDataStructure<T> {
+public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructure<T>
+        implements UnsortedDataStructure<T> {
     private LinkedListNode<T> head;
 
     /**
      * Default constructor for creating a new UnsortedLinkedList.
      */
     public LinkedList() {
+        super();
         head = null;
     } // LinkedList
 
@@ -23,6 +25,7 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      * @param data the data value belonging to the head of the LinkedList.
      */
     public LinkedList(T data) {
+        super();
         head = new LinkedListNode<>(data);
     } // LinkedList
 
@@ -110,8 +113,8 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      * {@inheritDoc}
      */
     @Override
-    public int search(T data) {
-        throw new UnsupportedOperationException("not yet implemented.");
+    public boolean search(T data) {
+        return indexOf(data) != -1;
     } // search
 
     /**
@@ -199,6 +202,26 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public T getLastValue() {
+        return null;
+    }
+
+    /**
+     * Returns the smallest value in the data structure.
+     *
+     * @return the smallest value in the data structure.
+     */
+    @Override
+    public T getSmallestValue() {
+        return null;
+    }
+
+    /**
+     * Returns the largest value in the data structure.
+     *
+     * @return the largest value in the data structure.
+     */
+    @Override
+    public T getLargestValue() {
         return null;
     }
 
