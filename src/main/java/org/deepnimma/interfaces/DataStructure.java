@@ -2,7 +2,7 @@ package org.deepnimma.interfaces;
 
 import org.deepnimma.nodes.Node;
 
-public interface DataStructure<T extends Comparable<T>> extends Cloneable {
+public interface DataStructure<T extends Comparable<T>> {
     /**
      * Insert an item into the DataStructure.
      * @param data the data to insert into the data structure.
