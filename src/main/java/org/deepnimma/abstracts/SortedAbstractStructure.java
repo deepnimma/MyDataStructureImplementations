@@ -3,7 +3,7 @@ package org.deepnimma.abstracts;
 import org.deepnimma.interfaces.DataStructure;
 import org.deepnimma.interfaces.SortedDataStructure;
 
-public abstract class SortedAbstractStructure<T extends Comparable<T>> implements SortedDataStructure<T> {
+public abstract class SortedAbstractStructure<T extends Comparable<T>> implements SortedDataStructure<T>, Cloneable {
     protected boolean reversed;
 
     /**
@@ -20,4 +20,12 @@ public abstract class SortedAbstractStructure<T extends Comparable<T>> implement
     public boolean isEmpty() {
         return size() == 0;
     } // isEmpty
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    } // clone
 } // SortedAbstractStructure
