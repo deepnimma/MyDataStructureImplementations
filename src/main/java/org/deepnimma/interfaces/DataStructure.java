@@ -20,15 +20,17 @@ public interface DataStructure<T extends Comparable<T>> {
      * Delete an item into the data structure. Doesn't do anything if the specified item is not found in the
      * data structure. Returns if the data value is not found.
      * @param data the data to delete.
+     * @return data if it was deleted. Otherwise returns {@code null}
      */
-    public void delete(T data);
+    public T delete(T data);
 
     /**
      * Delete the given index in the list.
      * @param index the index to delete
      * @throws IndexOutOfBoundsException if the index is <0 or  >=size().
+     * @return the data deleted at the index.
      */
-    public void deleteAt(int index);
+    public T deleteAt(int index);
 
     /**
      * Removes the first element in the list and returns it.
@@ -74,9 +76,8 @@ public interface DataStructure<T extends Comparable<T>> {
 
     /**
      * Get the value stored at a specific index.
-     * @throws IndexOutOfBoundsException if the index is greater than size-1 or less than 0.
      * @param index the index to get the data for.
-     * @return the data value stored at the specified index.
+     * @return the data value stored at the specified index. Returns {@code null} if the index is OutOfBounds
      */
     public T get(int index);
 

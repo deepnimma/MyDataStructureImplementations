@@ -4,6 +4,7 @@ import org.deepnimma.abstracts.UnsortedAbstractStructure;
 import org.deepnimma.interfaces.DataStructure;
 import org.deepnimma.interfaces.UnsortedDataStructure;
 import org.deepnimma.nodes.LinkedListNode;
+import org.deepnimma.nodes.Node;
 
 /**
  * A unsorted implementation of the LinkedList data structure.
@@ -43,58 +44,47 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public void insert(T data) {
-        throw new UnsupportedOperationException("not yet implemented.");
+        if (size() == 0) {
+            head = new LinkedListNode<>(data);
+            return;
+        } // if
+
+        LinkedListNode<T> currPos = head;
+
+        while (currPos.getNext() != null) {
+            currPos = currPos.getNext();
+        } // while
+
+        currPos.setNext(new LinkedListNode<>(data));
     } // insert
-
-    /**
-     * Inserts all the elements in the second data structure that is passed as a parameter. Adds elements
-     * as presented by otherStructure's removeLast method.
-     *
-     * @param otherStructure The second data structure to get all the new elements from.
-     */
-    @Override
-    public void insertAll(DataStructure<T> otherStructure) {
-
-    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(T data) {
-        throw new UnsupportedOperationException("not yet implemented.");
+    public T delete(T data) {
+        if (indexOf(data) == -1) {
+            return null;
+        } // if
+
+        if (head.getData().equals(data)) {
+            head = head.getNext();
+            return data;
+        } // if
+
+        LinkedListNode<T> prev = null;
+        LinkedListNode<T> currPos = head;
+
+        while (!currPos.getData().equals(data)) {
+            prev = currPos;
+            currPos = currPos.getNext();
+        } // while
+
+        assert prev != null; // just to get IntelliJ to stop yelling at me.
+        prev.setNext(currPos.getNext()); // skip currPos to delete it.
+
+        return data;
     } // delete
-
-    /**
-     * Delete the given index in the list.
-     *
-     * @param index the index to delete
-     * @throws IndexOutOfBoundsException if the index is <0 or  >=size().
-     */
-    @Override
-    public void deleteAt(int index) {
-
-    }
-
-    /**
-     * Removes the first element in the list and returns it.
-     *
-     * @return the first element in the list after removing it. Returns {@code null} if the list is empty.
-     */
-    @Override
-    public T removeFirst() {
-        return null;
-    }
-
-    /**
-     * Removes the last element in the list and returns it.
-     *
-     * @return the last element in the list after removing it. Returns {@code null} if the list is empty.
-     */
-    @Override
-    public T removeLast() {
-        return null;
-    }
 
     /**
      * Changes the value of the node at index to the given value.
@@ -110,14 +100,6 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean search(T data) {
-        return indexOf(data) != -1;
-    } // search
-
-    /**
      * Returns the index of the given data value if found. Returns -1 if the data value does
      * not exist in the data structure.
      *
@@ -126,15 +108,32 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public int indexOf(T data) {
-        return 0;
-    }
+        return recursiveSearch(head, 0, data);
+    } // indexOf
+
+    /**
+     * Recursively search for the given data item.
+     * @param currPos the current position of the iterator
+     * @param currIndex the current index of the iterator
+     * @param data the data to look for
+     * @return -1 if the data is not found, otherwise the current index
+     */
+    private int recursiveSearch(LinkedListNode<T> currPos, int currIndex, T data) {
+        if (currPos == null)
+            return -1;
+
+        if (currPos.getData().equals(data))
+            return currIndex;
+
+        return recursiveSearch(currPos.getNext(), currIndex + 1, data);
+    } // recursiveSearch
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void print() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        System.out.print(this);
     } // print
 
     /**
@@ -142,16 +141,40 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public T get(int index) {
-        throw new UnsupportedOperationException("not yet implemented.");
+        return recursiveGet(head, 0, index);
     } // get
+
+    private T recursiveGet(LinkedListNode<T> currPos, int currIndex, int index) {
+        if (currPos == null || currIndex > index || currIndex < 0)
+            return null;
+
+        if (currIndex == index)
+            return currPos.getData();
+
+        return recursiveGet(currPos.getNext(), currIndex + 1, index);
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public int size() {
-        throw new UnsupportedOperationException("not yet implemented.");
+        return recursiveSize(head, 0);
     } // size
+
+    /**
+     * Recursively find the size of the linked list.
+     * @param currPos the current position of the iterator
+     * @param counter the current count of the size of the list.
+     * @return the size of the list.
+     */
+    private int recursiveSize(LinkedListNode<T> currPos, int counter) {
+        if (currPos == null) {
+            return counter;
+        } // if
+
+        return recursiveSize(currPos.getNext(), counter + 1);
+    } // recursiveSize
 
     /**
      * {@inheritDoc}
@@ -183,7 +206,7 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
     @Override
     public DataStructure<T> subStructure(int startIndex, int endIndex) {
         return null;
-    }
+    } // subStructure
 
     /**
      * Get the first value of the data structure without removing it.
@@ -192,8 +215,8 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public T getFirstValue() {
-        return null;
-    }
+        return get(0);
+    } // getFirstValue
 
     /**
      * Get the last value of the data structure without removing it.
@@ -202,28 +225,52 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public T getLastValue() {
-        return null;
-    }
+        return get(size() - 1);
+    } // getLastValue
 
     /**
      * Returns the smallest value in the data structure.
      *
-     * @return the smallest value in the data structure.
+     * @return the smallest value in the data structure. Returns {@code null} if the list is empty.
      */
     @Override
     public T getSmallestValue() {
-        return null;
-    }
+        if (size() == 0) {
+            return null;
+        } // if
+
+        LinkedListNode<T> currPos = head;
+        T smallestVal = head.getData();
+
+        while (currPos != null) {
+            smallestVal = currPos.getData().compareTo(smallestVal) < 0 ? currPos.getData() : smallestVal;
+            currPos = currPos.getNext();
+        } // while
+
+        return smallestVal;
+    } // getSmallestValue
 
     /**
      * Returns the largest value in the data structure.
      *
-     * @return the largest value in the data structure.
+     * @return the largest value in the data structure. Returns {@code null} if the list is empty.
      */
     @Override
     public T getLargestValue() {
-        return null;
-    }
+        if (size() == 0) {
+            return null;
+        } // if
+
+        LinkedListNode<T> currPos = head;
+        T largestVal = head.getData();
+
+        while (currPos != null) {
+            largestVal = largestVal.compareTo(currPos.getData()) < 0 ? currPos.getData() : largestVal;
+            currPos = currPos.getNext();
+        } // while
+
+        return largestVal;
+    } // getLargestValue
 
     /**
      * Converts the data structure into an array and returns it.
