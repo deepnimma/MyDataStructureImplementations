@@ -4,7 +4,9 @@ import org.deepnimma.abstracts.UnsortedAbstractStructure;
 import org.deepnimma.interfaces.DataStructure;
 import org.deepnimma.interfaces.UnsortedDataStructure;
 import org.deepnimma.nodes.LinkedListNode;
-import org.deepnimma.nodes.Node;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A unsorted implementation of the LinkedList data structure.
@@ -135,6 +137,14 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
     public void print() {
         System.out.print(this);
     } // print
+
+    /**
+     * Empties the data structure.
+     */
+    @Override
+    public void clear() {
+        head = null;
+    } // clear
 
     /**
      * {@inheritDoc}
@@ -277,10 +287,19 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      *
      * @return the array form of the current data structure.
      */
-    @Override
-    public T[] toArray() {
-        return null;
-    }
+    public List<T> toArray() {
+        List<T> myArray = new ArrayList<>();
+
+        LinkedListNode<T> currPos = head;
+
+        while (currPos != null) {
+            myArray.add(currPos.getData());
+
+            currPos = currPos.getNext();
+        } // while
+
+        return myArray;
+    } // toArray
 
     /**
      * {@inheritDoc}
@@ -307,8 +326,34 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public void insert(int index, T data) {
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException("Cannot insert " + data + " at index: " + index);
+        } // if
 
-    }
+        if (index == 0) {
+            head = new LinkedListNode<>(data, head);
+
+            return;
+        } // if
+
+        LinkedListNode<T> prev = null;
+        LinkedListNode<T> currPos = head;
+        int i = 0;
+
+        while (currPos != null && i <= index) {
+            prev = currPos;
+            currPos = currPos.getNext();
+            i++;
+        } // while
+
+        if (size() == index) {
+            assert prev != null;
+            prev.setNext(new LinkedListNode<>(data));
+        } else {
+            assert currPos != null;
+            currPos.setNext(new LinkedListNode<>(data, currPos.getNext()));
+        } // if-else
+    } // insert
 
     /**
      * Inserts all the values in {@code otherStructure} at the given index.
@@ -329,8 +374,8 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public void insertFirst(T data) {
-
-    }
+        insert(0, data);
+    } // insertFirst
 
     /**
      * Inserts all the values in otherStructure at the start of the structure.
@@ -339,8 +384,8 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public void insertFirst(DataStructure<T> otherStructure) {
-
-    }
+        insertAll(0, otherStructure);
+    } // insertFirst
 
     /**
      * Inserts the data value at the end of the list.
@@ -349,8 +394,8 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public void insertEnd(T data) {
-
-    }
+        insert(size(), data);
+    } // insertEnd
 
     /**
      * Inserts all the values in otherStructure at the end of the structure.
@@ -359,6 +404,32 @@ public class LinkedList<T extends Comparable<T>> extends UnsortedAbstractStructu
      */
     @Override
     public void insertEnd(DataStructure<T> otherStructure) {
+        insertAll(size(), otherStructure);
+    } // insertEnd
 
-    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return recursiveToString(head, "");
+    } // toString
+
+    /**
+     * Recursively create the toString string.
+     * @param currPos the curr pos of the iterator
+     * @param outputString the current state of the output string.
+     * @return the output string.
+     */
+    private String recursiveToString(LinkedListNode<T> currPos, String outputString) {
+        if (currPos == null) {
+            outputString += '\n';
+
+            return outputString;
+        } // if
+
+        outputString += currPos.getData() + " ";
+
+        return recursiveToString(currPos.getNext(), outputString);
+    } // recursiveToString
 } // LinkedList

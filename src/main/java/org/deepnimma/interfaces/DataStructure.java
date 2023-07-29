@@ -2,7 +2,11 @@ package org.deepnimma.interfaces;
 
 import org.deepnimma.nodes.Node;
 
+import java.util.List;
+
 public interface DataStructure<T extends Comparable<T>> {
+
+
     /**
      * Insert an item into the DataStructure.
      * @param data the data to insert into the data structure.
@@ -151,9 +155,15 @@ public interface DataStructure<T extends Comparable<T>> {
 
     /**
      * Converts the data structure into an array and returns it.
+     *
      * @return the array form of the current data structure.
      */
-    public T[] toArray();
+    public List<T> toArray();
+
+    /**
+     * Empties the data structure.
+     */
+    public void clear();
 
     /**
      * Returns a string of the elements in a list with a space in between them. String ends in a \n.
