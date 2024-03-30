@@ -7,5 +7,5 @@ import org.deepnimma.interfaces.GenericStructure;
  * e1.equals(e2), and at most one null element.
  * @param <E>
  */
-public interface UnserSet<E> extends GenericStructure<E> {
+public interface DNSet<E> extends GenericStructure<E> {
 }

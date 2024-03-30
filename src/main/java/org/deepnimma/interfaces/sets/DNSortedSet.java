@@ -4,7 +4,7 @@ package org.deepnimma.interfaces.sets;
  * For sorted implementations of the set. Elements are ordered using their natural ordering, or by a Comparator typically provided at sorted set creation time.
  * @param <T> A {@link Comparable} extending class.
  */
-public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
+public interface DNSortedSet<T extends Comparable<T>> extends DNSet<T> {
     /**
      * Returns the first (lowest) element currently in this set.
      * @return the first (lowest) element currently in this set.
@@ -75,7 +75,7 @@ public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
      * @throws NullPointerException if toElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if toElement lies outside the bounds of the range.
      */
-    public UnserSortedSet<T> headSet(T toElement);
+    public DNSortedSet<T> headSet(T toElement);
 
     /**
      * Returns a copy of the portion of this set whose elements range to toElement (and also allows the user to choose whether toElement is inclusive or exclusive)
@@ -85,7 +85,7 @@ public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
      * @throws NullPointerException if toElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if toElement lies outside the bounds of the range.
      */
-    public UnserSortedSet<T> headSet(T toElement, boolean toElementInclusive);
+    public DNSortedSet<T> headSet(T toElement, boolean toElementInclusive);
 
     /**
      * Returns a copy of the portion of this set whose elements range from fromElement (inclusive).
@@ -94,7 +94,7 @@ public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
      * @throws NullPointerException if fromElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if this set itself has a restricted range, and fromElement lies outside the bounds of the range.
      */
-    public UnserSortedSet<T> tailSet(T fromElement);
+    public DNSortedSet<T> tailSet(T fromElement);
 
     /**
      * Returns a copy of the portion of this set whose elements range to toElement (and also allows the user to choose whether toElement is inclusive or exclusive)
@@ -104,7 +104,7 @@ public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
      * @throws NullPointerException if toElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if toElement lies outside the bounds of the range.
      */
-    public UnserSortedSet<T> tailSet(T fromElement, boolean fromElementInclusive);
+    public DNSortedSet<T> tailSet(T fromElement, boolean fromElementInclusive);
 
     /**
      * Returns a view of the portion of this set whose elements range from fromElement, inclusive, to toElement, exclusive.
@@ -115,7 +115,7 @@ public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
      * @throws NullPointerException if fromElement or toElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if fromElement is greater than toElement; or if this set itself has a restricted range, and fromElement or toElement lies outside the bounds of the range.
      */
-    public UnserSortedSet<T> subSet(T fromElement, T toElement);
+    public DNSortedSet<T> subSet(T fromElement, T toElement);
 
-    public UnserSet<T> descendingSet();
+    public DNSet<T> descendingSet();
 }
