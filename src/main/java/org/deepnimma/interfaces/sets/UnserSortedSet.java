@@ -73,7 +73,7 @@ public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
      * @param toElement high endpoint (exclusive) of the returned set
      * @return a copy of the portion of this set whose elements are strictly less than toElement.
      * @throws NullPointerException if toElement is null and this set does not permit null elements.
-     * @throws IllegalArgumentException if toElement lies outside of the bounds of the range.
+     * @throws IllegalArgumentException if toElement lies outside the bounds of the range.
      */
     public UnserSortedSet<T> headSet(T toElement);
 
@@ -83,7 +83,7 @@ public interface UnserSortedSet<T extends Comparable<T>> extends UnserSet<T> {
      * @param toElementInclusive whether {@code toElement} is inclusive or exclusive
      * @return a copy of the portion of this set according to the parameters.
      * @throws NullPointerException if toElement is null and this set does not permit null elements.
-     * @throws IllegalArgumentException if toElement lies outside of the bounds of the range.
+     * @throws IllegalArgumentException if toElement lies outside the bounds of the range.
      */
     public UnserSortedSet<T> headSet(T toElement, boolean toElementInclusive);
 
