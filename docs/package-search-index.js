@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.deepnimma"},{"l":"org.deepnimma.abstracts"},{"l":"org.deepnimma.interfaces"},{"l":"org.deepnimma.interfaces.lists"},{"l":"org.deepnimma.interfaces.queue"},{"l":"org.deepnimma.interfaces.sets"}];updateSearchResults();

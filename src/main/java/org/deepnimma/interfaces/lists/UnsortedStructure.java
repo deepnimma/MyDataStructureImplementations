@@ -14,7 +14,7 @@ public interface UnsortedStructure<E> extends GenericStructure<E> {
      * @param fromIndex low endpoint (inclusive) of the subList
      * @param toIndex   high endpoint (exclusive) of the subList
      * @return a view of the specified range within this list
-     * @throws IndexOutOfBoundsException for an illegal endpoint index value (fromIndex < 0 || toIndex > size || fromIndex > toIndex).
+     * @throws IndexOutOfBoundsException for an illegal endpoint index value {@code (fromIndex < 0 || toIndex > size || fromIndex > toIndex)}.
      */
     UnsortedStructure<E> subList(int fromIndex, int toIndex);
 
@@ -45,7 +45,7 @@ public interface UnsortedStructure<E> extends GenericStructure<E> {
      *
      * @param index index of the element to return
      * @return the element at the specified position in this list.
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
+     * @throws IndexOutOfBoundsException if the index is out of range {@code (index < 0 || index > size()}
      */
     E get(int index);
 

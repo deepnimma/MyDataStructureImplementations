@@ -97,7 +97,7 @@ public interface DNSortedSet<T extends Comparable<T>> extends DNSet<T> {
      * @throws NullPointerException     if toElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if toElement lies outside the bounds of the range.
      */
-    DNSortedSet<T> headSet(T toElement, boolean toElementInclusive);
+    public DNSortedSet<T> headSet(T toElement, boolean toElementInclusive);
 
     /**
      * Returns a copy of the portion of this set whose elements range from fromElement (inclusive).
@@ -107,7 +107,7 @@ public interface DNSortedSet<T extends Comparable<T>> extends DNSet<T> {
      * @throws NullPointerException     if fromElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if this set itself has a restricted range, and fromElement lies outside the bounds of the range.
      */
-    DNSortedSet<T> tailSet(T fromElement);
+    public DNSortedSet<T> tailSet(T fromElement);
 
     /**
      * Returns a copy of the portion of this set whose elements range to toElement (and also allows the user to choose whether toElement is inclusive or exclusive)
@@ -130,7 +130,18 @@ public interface DNSortedSet<T extends Comparable<T>> extends DNSet<T> {
      * @throws NullPointerException     if fromElement or toElement is null and this set does not permit null elements.
      * @throws IllegalArgumentException if fromElement is greater than toElement; or if this set itself has a restricted range, and fromElement or toElement lies outside the bounds of the range.
      */
-    DNSortedSet<T> subSet(T fromElement, T toElement);
+    public DNSortedSet<T> subSet(T fromElement, T toElement);
 
-    DNSet<T> descendingSet();
+    /**
+     * Returns a copy of the current set in descending order. Throws {@link NullPointerException} if the current set is empty.
+     * @return A copy of the current set in descending order.
+     * @throws NullPointerException if the current set is empty.
+     */
+    public DNSet<T> descendingSet();
+
+    /**
+     * Returns a copy of the current set in descending order, or null if the current set is empty.
+     * @return A copy of the current set in descending order, or null if the current set is emtpy.
+     */
+    public DNSet<T> reverse();
 }

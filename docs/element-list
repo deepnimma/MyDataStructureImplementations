@@ -1,0 +1,6 @@
+org.deepnimma
+org.deepnimma.abstracts
+org.deepnimma.interfaces
+org.deepnimma.interfaces.lists
+org.deepnimma.interfaces.queue
+org.deepnimma.interfaces.sets

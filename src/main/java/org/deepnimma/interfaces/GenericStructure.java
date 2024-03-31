@@ -1,5 +1,7 @@
 package org.deepnimma.interfaces;
 
+import java.util.Iterator;
+
 /**
  * The root interface for any of Data Structure present in this project. Both Sorted and Unsorted Data Structures
  * will be implementing this interface. Contains a lot of functions from Java library's Collection and List interfaces
@@ -16,7 +18,7 @@ package org.deepnimma.interfaces;
  * @param <E> The class being held in the data structure. Some data structures (especially the sorted implementations)
  *            will require this class to extend {@link Comparable<E>}.
  */
-public interface GenericStructure<E> {
+public interface GenericStructure<E> extends Iterator<E> {
 
     // addition functions
 

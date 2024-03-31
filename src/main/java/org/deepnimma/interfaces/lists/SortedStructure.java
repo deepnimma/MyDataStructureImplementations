@@ -5,7 +5,7 @@ import org.deepnimma.interfaces.GenericStructure;
 /**
  * A sorted ordered collection. Allows indexed access to list elements and are zero based.
  *
- * @param <T>
+ * @param <T> the element's type, has to extend comparable class for sorting.
  */
 public interface SortedStructure<T extends Comparable<T>> extends GenericStructure<T> {
     /**
@@ -27,7 +27,7 @@ public interface SortedStructure<T extends Comparable<T>> extends GenericStructu
      * @param fromIndex low endpoint (inclusive) of the subList
      * @param toIndex   high endpoint (exclusive) of the subList
      * @return a view of the specified range within this list
-     * @throws IndexOutOfBoundsException for an illegal endpoint index value (fromIndex < 0 || toIndex > size || fromIndex > toIndex).
+     * @throws IndexOutOfBoundsException for an illegal endpoint index value {@code (fromIndex < 0 || toIndex > size || fromIndex > toIndex)}.
      */
     SortedStructure<T> subList(int fromIndex, int toIndex);
 
@@ -58,7 +58,7 @@ public interface SortedStructure<T extends Comparable<T>> extends GenericStructu
      *
      * @param index index of the element to return
      * @return the element at the specified position in this list.
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
+     * @throws IndexOutOfBoundsException if the index is out of range {@code (index < 0 || index > size()}
      */
     T get(int index);
 

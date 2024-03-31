@@ -2,6 +2,10 @@ package org.deepnimma.interfaces.queue;
 
 import org.deepnimma.interfaces.GenericStructure;
 
+/**
+ * A double sided implementation of a queue.
+ * @param <E> The class of the elements in the structure.
+ */
 public interface DNQueue<E> extends GenericStructure<E> {
     /**
      * Retrieves, but does not remove, the head of this queue. This method differs from {@code peek} only in that it throws an exception if this queue is empty
