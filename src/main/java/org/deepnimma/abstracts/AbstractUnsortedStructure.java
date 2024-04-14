@@ -13,49 +13,22 @@ import org.deepnimma.interfaces.lists.UnsortedStructure;
 public abstract class AbstractUnsortedStructure<E> implements UnsortedStructure<E> {
     protected int size;
     protected int CAPACITY;
-    protected boolean capacityRestriction;
 
-    /**
-     * Creates an AbstractUnsortedStructure with the given parameters.
-     * @param initialSize The initialSize of the Structure. MUST be {@code initialSize <= CAPACITY}
-     * @param capacityRestriction Whether the structure should allow elements to be added past the CAPACITY given.
-     * @param capacity The CAPACITY of the Structure, Unneeded if {@code capacityRestriction} is set to false.
-     * @throws IllegalArgumentException if the initialSize is less than capacity
-     * @throws NullPointerException if any of the parameters are null.
-     */
-    public AbstractUnsortedStructure(int initialSize, boolean capacityRestriction, int capacity) {
-        // Check parameters
+    // Have to recreate the constructors without the CAPACITY restriction
+    public AbstractUnsortedStructure(int initialSize, int initialCapacity) {
+        if (initialSize <= 0) throw new ArrayStoreException("Unable to create a structure with a negative (or zero) initial size.");
+        if (initialCapacity < initialSize) throw new ArrayStoreException("Unable to create a structure with a capacity less than the initial size.");
 
+        size = 0;
         _initialize_structure(initialSize);
-        this.size = 0;
-        this.capacityRestriction = capacityRestriction;
-        this.CAPACITY = capacity;
     } // AbstractUnsortedStructure
 
-    /**
-     * Creates an AbstractUnsortedStructure with the given parameters. Defaults CAPACITY to {@code 3 * initialSize}
-     * @param initialSize The initialSize of the structure.
-     * @param capacityRestriction Whether the structure should allow elements to be added past the CAPACITY
-     * @throws NullPointerException if any of the parameters are null.
-     */
-    public AbstractUnsortedStructure(int initialSize, boolean capacityRestriction) {
-        this(initialSize, capacityRestriction, 3 * initialSize);
-    } // AbstractUnsortedStructure
-
-    /**
-     * Creates an AbstractUnsortedStructure with the given parameters. Defaults capacityRestriction to false.
-     * @param initialSize The initialSize of the structure.
-     * @throws NullPointerException if any of the parameters are null.
-     */
     public AbstractUnsortedStructure(int initialSize) {
-        this(initialSize, false, 3 * initialSize);
+        this(initialSize, 2 * initialSize);
     } // AbstractUnsortedStructure
 
-    /**
-     * Creates an AbstractUnsortedStructure with the given parameter. Defaults initialSize to 10 and capacityRestriction to false.
-     */
     public AbstractUnsortedStructure() {
-        this(10, false, 3 * 10);
+        this(4);
     } // AbstractUnsortedStructure
 
     /**
@@ -78,6 +51,19 @@ public abstract class AbstractUnsortedStructure<E> implements UnsortedStructure<
     /**
      * {@inheritDoc}
      */
+    public boolean addAll(GenericStructure<? extends E> c) {
+        if (c == null) throw new NullPointerException("Given Class to add cannot be null.");
+
+        for (int i = 0; i < c.size(); i++) {
+            this.add(c.get(i));
+        } // for
+
+        return true;
+    } // addAll
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean isEmpty() {
         return this.size() == 0;
     } // isEmpty
@@ -88,7 +74,4 @@ public abstract class AbstractUnsortedStructure<E> implements UnsortedStructure<
     public int size() {
         return size;
     } // size
-
-    public abstract Iterator<E> iterator() // iterator
-    ;
 } // AbstractList

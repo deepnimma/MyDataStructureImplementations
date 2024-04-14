@@ -12,45 +12,125 @@ import org.deepnimma.interfaces.lists.UnsortedStructure;
  * set by the user.
  * @param <E> the type of elements to be stored.
  */
-public class ArrayList<E> extends AbstractUnsortedStructure<E> implements UnsortedStructure<E>, Iterator<E> {
-    private E[] holder;
+public class ArrayList<E> extends AbstractUnsortedStructure<E> implements UnsortedStructure<E> {
+    private Object[] holder;
     private int currEnd = 0;
+    private boolean isFull = false;
+
+    /**
+     * Initialize ArrayList according to the initialSize and capacity provided.
+     * @param initialSize the initialSize of the array
+     * @param capacity the initialCapacity of the array
+     * @throws ArrayStoreException if the capacity is less than the initial size.
+     */
+    public ArrayList(int initialSize, int capacity) {
+        super(initialSize, capacity);
+    } // ArrayList
+
+    /**
+     * Initialize the ArrayList according to the initialSize provided. Capacity is set to 3 * initialSize by default.
+     * @param initialSize the initialSize of the data storing array.
+     */
+    public ArrayList(int initialSize) { super(initialSize); }
+
+    /**
+     * Initializes the ArrayList according to the default initialSize (= ) and capacity (= ).
+     */
+    public ArrayList() { super(); }
 
     /**
      * {@inheritDoc}
      */
     @Override
     protected void _initialize_structure(int initialSize) {
-        holder = (E[]) new Object[initialSize];
+        holder = new Object[initialSize];
     } // _initialize_structure
+
+    /**
+     * Function to double the size of the holder array the structure depends on.
+     */
+    private void _increase_array_size() {
+        // We need to double the size of the array.
+        Object[] newHolder = new Object[holder.length * 2];
+        this.CAPACITY = newHolder.length;
+
+        System.arraycopy(this.holder, 0, newHolder, 0, size()); // Copy the array over
+
+        this.holder = newHolder;
+    } // _increase_array_size
+
+    private void _check_full() {
+        this.isFull = (size() == this.CAPACITY);
+    } // _check_full
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Iterator<E> iterator() {
-        return Arrays.stream(holder).iterator();
-    } // iterator
-
-    @Override
     public boolean add(E e) {
-        return false;
-    }
+        if (this.isFull) {
+            _increase_array_size();
+            _check_full();
+        } // if
+
+        this.holder[currEnd] = e;
+        size++;
+        currEnd++;
+
+        return true;
+    } // add
 
     @Override
     public boolean addAll(GenericStructure<? extends E> c) {
-        return false;
-    }
+        for (int i = 0; i < c.size(); i++) {
+            add(c.get(i));
+        } // for
+
+        return true;
+    } // addAll
 
     @Override
     public void clear() {
+        currEnd = 0;
+        size = 0;
+    } // clear
 
-    }
+    /**
+     * Clears the array and also sets every object to null.
+     * @param empty Whether to empty the holder array or not. If set to {@code false} it will simply call {@code clear()}.
+     */
+    public void clear(boolean empty) {
+        if (empty) {
+            for (int i = 0; i < holder.length; i++) {
+                this.holder[i] = null;
+                size--;
+            } // for
+        } else {
+            clear();
+        } // if-else
+    } // clear
 
     @Override
     public boolean remove(Object o) {
+        if (!contains(o)) {
+            return false;
+        } // if
+
+        for (int i = 0; i < size(); i++) {
+            if (this.holder[i].equals(o)) {
+                // move holder objects after this entry one step back.
+                for (int j = i; j < currEnd - 1; j++) {
+                    this.holder[j] = this.holder[j + 1];
+                } // for
+
+                size--;
+                currEnd--;
+                return true;
+            } // if
+        } // for
+
         return false;
-    }
+    } // remove
 
     @Override
     public boolean removeAll(GenericStructure<?> c) {

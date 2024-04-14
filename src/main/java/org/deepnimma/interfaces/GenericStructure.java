@@ -18,7 +18,7 @@ import java.util.Iterator;
  * @param <E> The class being held in the data structure. Some data structures (especially the sorted implementations)
  *            will require this class to extend {@link Comparable<E>}.
  */
-public interface GenericStructure<E> extends Iterator<E> {
+public interface GenericStructure<E> {
 
     // addition functions
 
@@ -29,6 +29,7 @@ public interface GenericStructure<E> extends Iterator<E> {
      * <p>
      * If a collection refuses to add a particular element for any reason other than that it already contains the element
      * it must throw an exception (rather than returning {@code false}.
+     * <p>
      *
      * @param e element whose presence in this collection must be ensured (man these javadoc writers sure were
      *          pretentious).
@@ -178,4 +179,14 @@ public interface GenericStructure<E> extends Iterator<E> {
     @Override
     String toString();
 
+    /**
+     * Gets the value stored at index i (based on zero based indexing). Throws {@link UnsupportedOperationException} if the
+     * given structure is unordered.
+     * @param i the index to get the data value from
+     * @return The data value stored at the index
+     * @throws NullPointerException if the parameter given is null
+     * @throws IndexOutOfBoundsException if the index given does not lie within the bounds of the structure.
+     * @throws UnsupportedOperationException if the method is not implemented for any given reason.
+     */
+    E get(int i);
 } // UnsortedStructure
