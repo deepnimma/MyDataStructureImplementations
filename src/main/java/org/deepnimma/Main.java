@@ -1,8 +1,5 @@
 package org.deepnimma;
 
-import org.deepnimma.interfaces.GenericStructure;
-import org.deepnimma.lists.arraybased.ArrayList;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,8 +12,6 @@ public class Main {
      * @param args command line arguments.
      */
     public static void main(String[] args) {
-        GenericStructure<Integer> a = new ArrayList<>(5, false);
-
-        a.add(1);
+        System.out.println("Hello, World!");
     } // main
 } // Main
